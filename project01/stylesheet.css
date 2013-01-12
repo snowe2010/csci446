@@ -1,0 +1,99 @@
+#global_container {
+	margin-right: auto;
+	margin-left: auto;
+	width: 981px;
+	position: relative;
+	border: solid #000000 1px;
+	background-color: white;
+}
+
+body {
+	background-color: #A19FA0;
+}
+
+#header {
+	background-color: #B8B6B7;
+	padding: none;
+	margin: auto;
+	width: inherit;
+}
+
+#nav_bar {
+	margin: auto;
+	padding: auto;
+	width: auto;
+}
+
+#fform {
+	background-color: white;
+}
+
+h1 {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	position: relative;
+}
+
+h4 {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+footer {
+	position: relative;
+}
+
+ul {
+	display: block;
+	list-style-type: none;
+	background-color: #000000;
+	margin: 0px;
+	/*height: 27px;*/
+	padding: 0;
+	-webkit-margin-before: 0em;
+	-webkit-margin-after: 1em;
+	-webkit-markin-start: 0px;
+	-webkit-margin-end: 0px;
+	-webkit-padding-start: 0px;
+
+}
+
+li {
+	display: inline-block;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+a:link,a:visited {
+	display: block;
+	width: 100%;
+	color: #ffffff;
+	background-color: #000000;
+	text-align: center;
+	/*padding: 6px;*/
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+a:hover {
+	background-color: #9829fd;
+}
+
+.spacer {
+	display: block;
+	border-top: 2px solid transparent;
+}
+
+.nav_button {
+	line-height: 27px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+
+/*
+if irsensor=1
+then pulsout 37
+else pulsout 0
+endif
+*/
