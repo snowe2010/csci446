@@ -1,5 +1,6 @@
 * {
 	box-sizing: border-box;
+	font-family: "Helvetica Bold", "Helvetica World Bold", Helvetica, sans-serif;
 }
 
 #global_container {
@@ -13,7 +14,6 @@
 
 body {
 	background-color: #A19FA0;
-	font-family: Helvetica, sans-serif;
 }
 
 
@@ -23,7 +23,6 @@ h1 {
 	position: relative;
 	font-weight: 900;
 	letter-spacing: -2px;
-	font-family: "Helvetica Bold", "Helvetica World Bold", sans-serif;
 }
 
 h2 {
@@ -117,7 +116,7 @@ a:hover {
 	margin: auto;
 	padding: auto;
 	width: auto;
-	font-family: Helvetica, sans-serif;
+
 }
 
 #fform {
@@ -146,6 +145,7 @@ a:hover {
 #left_aligned_box {
 	float: left;
 	height: 100%;
+	width: auto;
 }
 
 #right_aligned_box {
