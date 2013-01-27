@@ -7,6 +7,7 @@ class AlbumApp
   	case request.path
   	when "/form" then render_form request
   	when "/list" then render_list request
+    when "/list.css" then render_css
     when "/sd" then exit!
   	else render_404
   	end
@@ -15,11 +16,21 @@ class AlbumApp
 
   def render_form request
   	response = Rack::Response.new
-  	File.open("form.html", "rb") { |form| response.write(form.read) }
+  	File.open("form.html", "rb") { |form| response.write(generate_form form) }
   	response.finish
   end
 
-  def generate_options_list
+  def generate_form form
+    return_string = ""
+    form.each_line do |line|
+      if line.include? "<select name=\"rank\" id=\"rank\">"
+        return_string += line
+        1.upto(100) { |i| return_string += "<option value=\"#{i}\">#{i}</option>" }
+      else
+        return_string += line
+      end
+    end
+    return return_string
   end
 
   def render_list request
@@ -32,6 +43,12 @@ class AlbumApp
       response.write(convert_to_html correct_hash, order, rank)
     end
   	response.finish
+  end
+
+  def render_css 
+    response = Rack::Response.new 
+    File.open("list.css", "rb") { |css| puts css; response.write(css.read)}
+    response.finish
   end
 
   def render_404
@@ -71,9 +88,10 @@ class AlbumApp
   #Converts the list of albums to html
   def convert_to_html albums, order, rank
     string_before = 
-    "<html>
-      <head>
+    "
+      <html>
         <title>\"Rolling Stone's Top 100 Albums of All Time\"</title>
+        <link rel=\"stylesheet\" type=\"text/css\" href=\"list.css\">
       </head>
       <body>
         <h1>Rolling Stone's Top 100 Albums of All Time</h1>
@@ -82,12 +100,18 @@ class AlbumApp
         </br>
         <table>\n" + 
           albums.map do |album| 
-            puts album[:rank]
-            puts rank.to_i
             if album[:rank] == rank.to_i
-              "<tr><td  style=\"color: #9829fd\">  #{album[:rank]}. #{album[:name]} #{album[:year]}</td></tr>" 
+              "<tr id=\"highlighted_row\"> 
+                <td>  #{album[:rank]}. </td>
+                <td>  #{album[:name]}  </td>
+                <td>  #{album[:year]}  </td>
+              </tr>" 
             else 
-              "<tr><td>  #{album[:rank]}. #{album[:name]} #{album[:year]}</td></tr>" 
+              "<tr>
+                <td>  #{album[:rank]}. </td>
+                <td>  #{album[:name]}  </td>
+                <td>  #{album[:year]}  </td>
+              </tr>" 
             end 
           end.join("\n") + 
         "</table>
@@ -96,5 +120,9 @@ class AlbumApp
   end
 
 end
+
+Signal.trap('INT') {
+  Rack::Handler::WEBrick.shutdown
+}
 
 Rack::Handler::WEBrick.run AlbumApp.new, :Port => 8080
