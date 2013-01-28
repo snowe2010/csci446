@@ -46,7 +46,7 @@ class AlbumApp
   end
 
   def render_css 
-    response = Rack::Response.new 
+    response = Rack::Response.new([], 200, {"Content-Type" => "text/css"})
     File.open("list.css", "rb") { |css| puts css; response.write(css.read)}
     response.finish
   end
@@ -88,7 +88,7 @@ class AlbumApp
   #Converts the list of albums to html
   def convert_to_html albums, order, rank
     string_before = 
-    "
+    "<!DOCTYPE html>
       <html>
         <title>\"Rolling Stone's Top 100 Albums of All Time\"</title>
         <link rel=\"stylesheet\" type=\"text/css\" href=\"list.css\">
