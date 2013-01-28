@@ -92,6 +92,7 @@ class AlbumApp
       <html>
         <title>\"Rolling Stone's Top 100 Albums of All Time\"</title>
         <link rel=\"stylesheet\" type=\"text/css\" href=\"list.css\">
+        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
       </head>
       <body>
         <h1>Rolling Stone's Top 100 Albums of All Time</h1>
