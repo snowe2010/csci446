@@ -2,29 +2,32 @@ require 'rack'
 
 class AlbumApp
 
+  #requests and responds with stuff
   def call(env)
   	request = Rack::Request.new(env)
   	case request.path
   	when "/form" then render_form request
   	when "/list" then render_list request
     when "/list.css" then render_css
-    when "/sd" then exit!
+    when "/sd" then exit! 
   	else render_404
   	end
-    # [200, {"Content-Type" => "text/html"}, ["Hello World"]]
   end
 
+  #build /form page
   def render_form request
   	response = Rack::Response.new
   	File.open("form.html", "rb") { |form| response.write(generate_form form) }
   	response.finish
   end
 
+  #generate html with dynamic options for rank
   def generate_form form
     return_string = ""
     form.each_line do |line|
       if line.include? "<select name=\"rank\" id=\"rank\">"
         return_string += line
+        #fragile, but I can fix later if needed. Didn't see the need in this case.
         1.upto(100) { |i| return_string += "<option value=\"#{i}\">#{i}</option>" }
       else
         return_string += line
@@ -33,11 +36,13 @@ class AlbumApp
     return return_string
   end
 
+  #build /list page with different results based on form query
   def render_list request
   	response = Rack::Response.new
     get = request.GET()
     order = get["order"]
     rank = get["rank"]
+    #open the list of albums, build a hash of them, and write it to the response
     File.open("top_100_albums.txt", "r") do |form| 
       correct_hash = sort_by order, form
       response.write(convert_to_html correct_hash, order, rank)
@@ -45,6 +50,7 @@ class AlbumApp
   	response.finish
   end
 
+  #call the css for the /list page
   def render_css 
     response = Rack::Response.new([], 200, {"Content-Type" => "text/css"})
     File.open("list.css", "rb") { |css| puts css; response.write(css.read)}
@@ -122,6 +128,7 @@ class AlbumApp
 
 end
 
+#handles ctrl+c shutdown of server
 Signal.trap('INT') {
   Rack::Handler::WEBrick.shutdown
 }
