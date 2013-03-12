@@ -2,13 +2,13 @@
 <html>
 <head>
   <title>Pragprog Books Online Store</title>
-  <%= stylesheet_link_tag    "scaffold" %>
-  <%= stylesheet_link_tag    "depot", :media => "all" %>
+  <%= stylesheet_link_tag "scaffold" %>
+  <%= stylesheet_link_tag "depot", :media => "all" %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-	<div id="store">
+<body id="store">
+	<div id="banner">
 		<%= image_tag("logo.png") %>
 		<%= @page_title || "Pragmatic Bookshelf" %>
 	</div>
